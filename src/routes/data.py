@@ -24,7 +24,7 @@ async def upload_data(request: Request, project_id: str, file: UploadFile,
     """
     Upload data to a specific project.
     """
-    project_model = ProjectModel(
+    project_model = await ProjectModel.create_instance(
         db_client=request.app.db_client
     )
 
@@ -75,7 +75,7 @@ async def process_endpoint(request: Request, project_id: str, process_request:Pr
     overlap_size = process_request.overlap_size
     do_reset = process_request.do_reset
 
-    project_model = ProjectModel(
+    project_model = await ProjectModel.create_instance(
         db_client=request.app.db_client
     )
 
@@ -112,7 +112,7 @@ async def process_endpoint(request: Request, project_id: str, process_request:Pr
         for i, chunk in enumerate(file_chunks)
     ]
 
-    chunk_model = ChunkModel(
+    chunk_model = await ChunkModel.create_instance(
         db_client=request.app.db_client
     )
 
